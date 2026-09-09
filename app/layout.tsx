@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import { Fraunces, Geist_Mono, Source_Sans_3 } from "next/font/google";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { DisableDraftMode } from "@/components/disable-draft-mode";
 import { Toaster } from "@/components/ui/sonner";
 import { SanityLive } from "@/sanity/lib/live";
@@ -72,6 +73,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             </Show>
           </div>
           {children}
+          <ChatWidget />
           <Toaster />
           <SanityLive />
           {isDraftMode && (
