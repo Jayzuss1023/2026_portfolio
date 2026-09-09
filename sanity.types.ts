@@ -372,8 +372,93 @@ export type AllSanitySchemaTypes =
   | Geopoint;
 
 // Source: ../sanity/lib/queries.ts
+// Variable: PROFILE_QUERY
+// Query: *[_type == "profile"][0]{    _id,    firstName,    lastName,    headline,    shortBio,    fullBio,    email,    phone,    location,    availabilityStatus,    socialLinks[]{      _key,      platform,      url,      label    },    profileImage{      asset->{_id, url},      alt,      hotspot,      crop    }  }
+export type PROFILE_QUERY_RESULT = {
+  _id: string;
+  firstName: string | null;
+  lastName: string | null;
+  headline: string | null;
+  shortBio: string | null;
+  fullBio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+  availabilityStatus:
+    "available-for-hire" | "not-available" | "open-to-opportunities" | null;
+  socialLinks: Array<{
+    _key: string;
+    platform:
+      | "github"
+      | "instagram"
+      | "linkedin"
+      | "other"
+      | "website"
+      | "x"
+      | "youtube"
+      | null;
+    url: string | null;
+    label: string | null;
+  }> | null;
+  profileImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    alt: string | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+} | null;
+
+// Source: ../sanity/lib/queries.ts
+// Variable: NAVIGATION_QUERY
+// Query: *[_type == "navigation"][0]{    _id,    title,    links[]{      _key,      label,      href,      icon,      order,      openInNewTab    }  }
+export type NAVIGATION_QUERY_RESULT = {
+  _id: string;
+  title: string | null;
+  links: Array<{
+    _key: string;
+    label: string | null;
+    href: string | null;
+    icon:
+      | "brand-github"
+      | "brand-linkedin"
+      | "briefcase"
+      | "code"
+      | "file-text"
+      | "folder"
+      | "home"
+      | "link"
+      | "mail"
+      | "phone"
+      | "user"
+      | null;
+    order: number | null;
+    openInNewTab: boolean | null;
+  }> | null;
+} | null;
+
+// Source: ../sanity/lib/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && defined(slug.current)]  | order(featured desc, order asc, _createdAt desc){    _id,    title,    "slug": slug.current,    "tagline": coalesce(tagline, summary),    featured,    category,    "technologies": coalesce(      technologies[]->name,      techStack    )  }
+// Query: *[_type == "project" && defined(slug.current)]  | order(featured desc, order asc, _createdAt desc){    _id,    title,    "slug": slug.current,    "tagline": coalesce(tagline, summary),    featured,    category,    order,    liveUrl,    "githubUrl": coalesce(githubUrl, repoUrl),    "technologies": coalesce(      technologies[]->name,      techStack    ),    coverImage{      asset->{_id, url},      alt,      hotspot,      crop    }  }
 export type PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -381,12 +466,24 @@ export type PROJECTS_QUERY_RESULT = Array<{
   tagline: string | null;
   featured: boolean | null;
   category: string | null;
+  order: number | null;
+  liveUrl: string | null;
+  githubUrl: string | null;
   technologies: Array<string | null> | null;
+  coverImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    alt: string | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
 }>;
 
 // Source: ../sanity/lib/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    title,    "slug": slug.current,    "tagline": coalesce(tagline, summary),    category,    liveUrl,    "githubUrl": coalesce(githubUrl, repoUrl),    "technologies": coalesce(      technologies[]->name,      techStack    ),    body  }
+// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    title,    "slug": slug.current,    "tagline": coalesce(tagline, summary),    category,    liveUrl,    "githubUrl": coalesce(githubUrl, repoUrl),    "technologies": coalesce(      technologies[]->name,      techStack    ),    coverImage{      asset->{_id, url},      alt,      hotspot,      crop    },    body  }
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string | null;
@@ -396,6 +493,15 @@ export type PROJECT_QUERY_RESULT = {
   liveUrl: string | null;
   githubUrl: string | null;
   technologies: Array<string | null> | null;
+  coverImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    alt: string | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
   body: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -423,12 +529,102 @@ export type PROJECT_SLUGS_QUERY_RESULT = Array<{
   slug: string | null;
 }>;
 
+// Source: ../sanity/lib/queries.ts
+// Variable: SKILLS_QUERY
+// Query: *[_type == "skill" && defined(name)]  | order(category asc, name asc){    _id,    name,    category  }
+export type SKILLS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  category:
+    | "ai-llm"
+    | "apis-integration"
+    | "authentication-security"
+    | "cloud-devops"
+    | "data-engineering"
+    | "databases-data"
+    | "dev-tools-ai-assistants"
+    | "languages-frameworks"
+    | "software-design-oop"
+    | "testing-delivery"
+    | "tools-practices"
+    | null;
+}>;
+
+// Source: ../sanity/lib/queries.ts
+// Variable: BLOG_POSTS_QUERY
+// Query: *[_type == "blogPost" && defined(slug.current)]  | order(coalesce(publishedAt, _createdAt) desc){    _id,    title,    "slug": slug.current,    publishedAt,    description  }
+export type BLOG_POSTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+}>;
+
+// Source: ../sanity/lib/queries.ts
+// Variable: BLOG_POST_QUERY
+// Query: *[_type == "blogPost" && slug.current == $slug][0]{    _id,    title,    "slug": slug.current,    publishedAt,    description  }
+export type BLOG_POST_QUERY_RESULT = {
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+} | null;
+
+// Source: ../sanity/lib/queries.ts
+// Variable: BLOG_SLUGS_QUERY
+// Query: *[_type == "blogPost" && defined(slug.current)]{    "slug": slug.current  }
+export type BLOG_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+}>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "project" && defined(slug.current)]\n  | order(featured desc, order asc, _createdAt desc){\n    _id,\n    title,\n    "slug": slug.current,\n    "tagline": coalesce(tagline, summary),\n    featured,\n    category,\n    "technologies": coalesce(\n      technologies[]->name,\n      techStack\n    )\n  }\n': PROJECTS_QUERY_RESULT;
-    '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    title,\n    "slug": slug.current,\n    "tagline": coalesce(tagline, summary),\n    category,\n    liveUrl,\n    "githubUrl": coalesce(githubUrl, repoUrl),\n    "technologies": coalesce(\n      technologies[]->name,\n      techStack\n    ),\n    body\n  }\n': PROJECT_QUERY_RESULT;
+    '\n  *[_type == "profile"][0]{\n    _id,\n    firstName,\n    lastName,\n    headline,\n    shortBio,\n    fullBio,\n    email,\n    phone,\n    location,\n    availabilityStatus,\n    socialLinks[]{\n      _key,\n      platform,\n      url,\n      label\n    },\n    profileImage{\n      asset->{_id, url},\n      alt,\n      hotspot,\n      crop\n    }\n  }\n': PROFILE_QUERY_RESULT;
+    '\n  *[_type == "navigation"][0]{\n    _id,\n    title,\n    links[]{\n      _key,\n      label,\n      href,\n      icon,\n      order,\n      openInNewTab\n    }\n  }\n': NAVIGATION_QUERY_RESULT;
+    '\n  *[_type == "project" && defined(slug.current)]\n  | order(featured desc, order asc, _createdAt desc){\n    _id,\n    title,\n    "slug": slug.current,\n    "tagline": coalesce(tagline, summary),\n    featured,\n    category,\n    order,\n    liveUrl,\n    "githubUrl": coalesce(githubUrl, repoUrl),\n    "technologies": coalesce(\n      technologies[]->name,\n      techStack\n    ),\n    coverImage{\n      asset->{_id, url},\n      alt,\n      hotspot,\n      crop\n    }\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    title,\n    "slug": slug.current,\n    "tagline": coalesce(tagline, summary),\n    category,\n    liveUrl,\n    "githubUrl": coalesce(githubUrl, repoUrl),\n    "technologies": coalesce(\n      technologies[]->name,\n      techStack\n    ),\n    coverImage{\n      asset->{_id, url},\n      alt,\n      hotspot,\n      crop\n    },\n    body\n  }\n': PROJECT_QUERY_RESULT;
     '\n  *[_type == "project" && defined(slug.current)]{\n    "slug": slug.current\n  }\n': PROJECT_SLUGS_QUERY_RESULT;
+    '\n  *[_type == "skill" && defined(name)]\n  | order(category asc, name asc){\n    _id,\n    name,\n    category\n  }\n': SKILLS_QUERY_RESULT;
+    '\n  *[_type == "blogPost" && defined(slug.current)]\n  | order(coalesce(publishedAt, _createdAt) desc){\n    _id,\n    title,\n    "slug": slug.current,\n    publishedAt,\n    description\n  }\n': BLOG_POSTS_QUERY_RESULT;
+    '\n  *[_type == "blogPost" && slug.current == $slug][0]{\n    _id,\n    title,\n    "slug": slug.current,\n    publishedAt,\n    description\n  }\n': BLOG_POST_QUERY_RESULT;
+    '\n  *[_type == "blogPost" && defined(slug.current)]{\n    "slug": slug.current\n  }\n': BLOG_SLUGS_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too
