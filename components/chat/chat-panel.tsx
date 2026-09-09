@@ -36,8 +36,9 @@ export function ChatPanel({ open, onClose }: Props) {
 
   useEffect(() => {
     if (!error) return;
+    const unauthorized = /401|Unauthorized/i.test(error.message);
     toast.error(
-      error.message.includes("401")
+      unauthorized
         ? "Please sign in to use chat."
         : "Chat failed. Please try again.",
     );
