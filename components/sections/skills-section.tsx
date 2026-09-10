@@ -39,10 +39,17 @@ export function SkillsSection({ groups }: Props) {
           </p>
         </div>
 
-        <Tabs defaultValue={defaultValue}>
-          <TabsList variant="line" className="h-auto w-full flex-wrap justify-start gap-1">
+        <Tabs defaultValue={defaultValue} className="gap-15">
+          <TabsList
+            variant="line"
+            className="group-data-horizontal/tabs:h-auto h-auto w-full flex-wrap justify-start gap-x-1 gap-y-2 pb-3"
+          >
             {groups.map((group) => (
-              <TabsTrigger key={group.category} value={group.category}>
+              <TabsTrigger
+                key={group.category}
+                value={group.category}
+                className="flex-none whitespace-normal text-left sm:whitespace-nowrap"
+              >
                 {group.label}
               </TabsTrigger>
             ))}
@@ -51,11 +58,15 @@ export function SkillsSection({ groups }: Props) {
             <TabsContent
               key={group.category}
               value={group.category}
-              className="mt-6"
+              className="mt-5 border-border/60 border-t pt-6"
             >
               <div className="flex flex-wrap gap-2">
                 {group.skills.map((skill) => (
-                  <Badge key={skill._id} variant="secondary" className="px-3 py-1">
+                  <Badge
+                    key={skill._id}
+                    variant="secondary"
+                    className="px-3 py-1"
+                  >
                     {skill.name}
                   </Badge>
                 ))}
