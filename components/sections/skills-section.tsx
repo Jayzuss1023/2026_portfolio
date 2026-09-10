@@ -31,11 +31,10 @@ export function SkillsSection({ groups }: Props) {
             Skills
           </p>
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            Tools by category
+            Tools
           </h2>
           <p className="text-muted-foreground max-w-2xl text-base leading-7">
-            A living inventory of languages, frameworks, platforms, and
-            practices from Sanity.
+            Tech that I dabble with!
           </p>
         </div>
 
