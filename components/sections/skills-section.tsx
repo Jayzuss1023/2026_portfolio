@@ -39,7 +39,7 @@ export function SkillsSection({ groups }: Props) {
           </p>
         </div>
 
-        <Tabs defaultValue={defaultValue} className="gap-0">
+        <Tabs defaultValue={defaultValue} className="gap-15">
           <TabsList
             variant="line"
             className="group-data-horizontal/tabs:h-auto h-auto w-full flex-wrap justify-start gap-x-1 gap-y-2 pb-3"
@@ -58,7 +58,7 @@ export function SkillsSection({ groups }: Props) {
             <TabsContent
               key={group.category}
               value={group.category}
-              className="mt-4 border-border/60 border-t pt-6"
+              className="mt-5 border-border/60 border-t pt-6"
             >
               <div className="flex flex-wrap gap-2">
                 {group.skills.map((skill) => (
